@@ -1,0 +1,125 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>GỬI NG.IU ANH  </title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style0.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="typing">
+        <h2 class="header-sub-title" id="word"></h2>
+        <h2 class="header-sub-title blink">|</h2>
+      </div>
+      <audio controls autoplay loop="loop"><source src="music.mp3" /></audio>
+      <div class="box">
+        <ul class="minbox">
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <ol class="maxbox">
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ol>
+      </div>
+    </div>
+
+    <script src="jquery.min.js"></script>
+    <script src="/TweenMax.min.js"></script>
+    <script src="index.js"></script>
+
+    <script>
+
+      if (
+        navigator.userAgent.match(
+          /(phone|pod|iPhone|iPod|ios|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
+        )
+      ) {
+        var box = document.querySelectorAll(".box")[0];
+        console.log(box, "移动端");
+        box.style.left = "42%";
+      }
+      const words = [
+        "❤  hi người iu tui nhoa >< mở nhạc ở góc dưới bên trái màn hình nè <3 .",
+        // "❤  nay  nà ngày 8/3 đóa  。!",
+        // "❤  em chưa phại người phụ nữ của  anh .。!",
+        // "❤  nhưng nà một chàng trai mới nhớn và có một chút kiến thức về IT .。!",
+        // "❤  đây nà món quà nhỏ anh dành tặng em, hi vọng em thích  <3 !。",
+        // "❤  thay lời anh muốn nói, và thay cho những thứ anh chưa mua được cho em  .. !",
+        // "❤  cảm ơn em đã bên cạnh anh lúc anh chưa có gì, hi vọng em có thể cùng anh cố gắng đến cuối con đường!",
+        // "❤  anh khum phại một chàng trai tình cảm gì cạ đouu, cũng khum đào hoa gì cạ. .。!",
+        // "❤  anh cũng khum biếc bày tỏ với mẹ như nào cạ :(( hi vọng việc đó để cho con dâu tương lai nhé :v )).。!",
+        // "❤  ngiu anh cũng nên tự bày tỏ với bà và mẹ đi nhoa :v em vẫn nà con gái mà đúng khum, em đã phại nà phụ nữ đâu ;)) .!",
+        // "❤  con gái rượu của ông bà mau khỏe nhé <3 đừng ốm nữa, thương em nhắmm <3  .。!",
+        // "❤  Để được ôm em anh đã mơ rấc nhìu lần, Trong cơn mơ rất nhiều tuần, Thậc đóa :v .",
+        // "❤ . Nhưng điều khiến em đặc biệt , Rằng em ngọt ngào theo cách của riêng em !! iu EM :v ." ,
+
+      ];
+      let PPP = 0;
+      let timer;
+      let deleteDelay = 3000;
+      let typeSpeed = 100;
+      let delSpeed = 50;
+      function typingEffect() {
+        console.log(i, "iiii");
+        console.log(words[PPP], "words[i]");
+        let word = words[PPP].split("");
+        var loopTyping = function () {
+          if (word.length > 0) {
+            document.getElementById("word").innerHTML += word.shift();
+          } else {
+            delay(function () {
+              deletingEffect(); 
+            }, deleteDelay); 
+            return false;
+          }
+          timer = setTimeout(loopTyping, typeSpeed);
+        };
+        loopTyping();
+      }
+
+      function deletingEffect() {
+        let word = words[PPP].split("");
+        var loopDeleting = function () {
+          if (word.length > 0) {
+            word.pop();
+            document.getElementById("word").innerHTML = word.join("");
+          } else {
+            if (words.length > PPP + 1) {
+              PPP++;
+            } else {
+              PPP = 0;
+            }
+            typingEffect();
+            return false;
+          }
+
+          timer = setTimeout(loopDeleting, delSpeed);
+        };
+
+        loopDeleting();
+      }
+
+      var delay = (function () {
+        var timer = 0;
+        return function (callback, ms) {
+          clearTimeout(timer);
+          timer = setTimeout(callback, ms);
+        };
+      })();
+      typingEffect();
+    </script>
+  </body>
+</html>
